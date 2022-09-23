@@ -4,7 +4,7 @@
   "description": "Aplicacion que muestra los personajes de guerra de las galaxias",
   "main": "index.js",
   "scripts": {
-    "test": "alt + y"
+    "dev": "node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -12,7 +12,8 @@
   },
   "author": "Javier Santacruz",
   "license": "MIT",
-  "scripts":{
-    "dev": "node ./index.js"
+  "dependencies": {
+    "mongoose": "^6.6.1",
+    "react-dotenv": "^0.1.3"
   }
 }
