@@ -30,6 +30,6 @@ function server() {
   });
 
   serverApollo.listen().then(({ url }) => {
-    console.log(`Servidor running on url ${url}`);
+    console.log(`Servidor running on url ${url} <- ctrl + click`);
   });
 }
