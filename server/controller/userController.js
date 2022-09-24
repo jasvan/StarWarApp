@@ -1,24 +1,31 @@
-async function register ( imput )
-{
-     const newUser = input;
-     newUser.email = newUser.email.toLowerCase();
-     newUser.usename = newUser.username.toLowerCase();
+const User = require("../models/User");
+const bcryptjs = require("bcryptjs");
 
-     const { email, username, password } = newUser;
-     //resolvemos si el email esta en uso
-     const foundEmail = await User.findOne({ email });
-     if (foundEmail) throw new Error("El email ya esta en uso");
+async function register(input) {
+  const newUser = input;
+  newUser.email = newUser.email.toLowerCase();
+  newUser.username = newUser.username.toLowerCase();
 
-     const foundUsername = await User.findOne({ username });
-     if (foundUsername) throw new Error("El nombre de usuario ya esta en uso");
+  const { email, username, password } = newUser;
+  //resolvemos si el email esta en uso
+  const foundEmail = await User.findOne({ email });
+  if (foundEmail) throw new Error("El email ya esta en uso");
 
-     // encriptar
+  const foundUsername = await User.findOne({ username });
+  if (foundUsername) throw new Error("El nombre de usuario ya esta en uso");
 
-     try {
-       const user = new User(newUser);
-       user.save();
-       return user;
-     } catch (error) {
-       console.log(error);
-     }
+  // encriptar password
+  const salt = await bcryptjs.genSaltSync(10);
+  newUser.password = await bcryptjs.hash(password, salt);
+
+  try {
+    const user = new User(newUser);
+    user.save();
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+module.exports = {
+    register,
 }
