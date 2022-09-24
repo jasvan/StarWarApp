@@ -1,5 +1,4 @@
 const User = require( "../models/User" );
-
 const resolve = {
   Query: {
     //User
